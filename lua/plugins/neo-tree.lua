@@ -1,0 +1,56 @@
+return {
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v3.x",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons", 
+    "MunifTanjim/nui.nvim",
+  },
+  config = function()
+    vim.keymap.set('n', '<c-n>', ':Neotree filesystem reveal left<cr>')
+    vim.keymap.set('n', '<c-b>', ':Neotree close<cr>', {})
+
+    local function split_and_open(direction, node)
+      local current_win = vim.api.nvim_get_current_win()
+      vim.cmd("wincmd p")
+
+      if direction == "left" then
+        vim.cmd("leftabove vsplit")
+      elseif direction == "right" then
+        vim.cmd("rightbelow vsplit")
+      elseif direction == "up" then
+        vim.cmd("aboveleft split")
+      elseif direction == "down" then
+        vim.cmd("belowright split")
+      end
+
+      vim.cmd("edit " .. node.path)
+      vim.api.nvim_set_current_win(current_win)
+    end
+
+    require("neo-tree").setup({
+      window = {
+        position = "left",
+        mappings = {
+          ["<C-l>"] = function(state)
+            local node = state.tree:get_node()
+            split_and_open("left", node)
+          end,
+          ["<C-r>"] = function(state)
+            local node = state.tree:get_node()
+            split_and_open("right", node)
+          end,
+          ["<C-u>"] = function(state)
+            local node = state.tree:get_node()
+            split_and_open("up", node)
+          end,
+          ["<C-d>"] = function(state)
+            local node = state.tree:get_node()
+            split_and_open("down", node)
+          end,
+        },
+      }
+    })
+  end
+}
+
