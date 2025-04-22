@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local opts = {}
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 -- Map all plugins
 require("lazy").setup({
 	{ import = "plugins.core" },
