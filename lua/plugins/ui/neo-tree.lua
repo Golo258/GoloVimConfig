@@ -78,6 +78,13 @@ return {
 					end,
 				},
 			},
+			filesystem = {
+				window = {
+					mappings = {
+						["Z"] = "expand_all_nodes",
+					},
+				},
+			},
 		})
 
 		-- setup to auto open neo-tree after loading nvim file

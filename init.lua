@@ -16,7 +16,14 @@ vim.opt.rtp:prepend(lazypath)
 
 local opts = {}
 vim.g.mapleader = " "
-require("lazy").setup("plugins")
+-- Map all plugins 
+require("lazy").setup({
+  { import = "plugins.core" },
+  { import = "plugins.lsp" },
+  { import = "plugins.ui" },
+  { import = "plugins.coding" },
+  { import = "plugins.themes" },
+})
 require("vim-mapping")
 
 -- settings to make neo-tree not blocke after :wq
@@ -33,6 +40,7 @@ vim.filetype.add({
 		groovy = "groovy",
 	},
 })
+
 
 -- settings for terminal xterm
 vim.opt.termguicolors = true
