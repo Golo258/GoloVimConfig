@@ -1,24 +1,13 @@
 return {
 	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"lua_ls",
-					"elixirls",
-					"pyright",
-					"groovyls",
-				},
-			})
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
+		lazy = false,
+		priority = 1000,
 		config = function()
-			local lspConfig = require("lspconfig")
+			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			-- Ensure to add to each lsp's capabilities to snippets
-			lspConfig.lua_ls.setup({
+
+			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 				settings = {
 					Lua = {
@@ -29,8 +18,7 @@ return {
 				},
 			})
 
-			-- Setup for elixir lsp
-			lspConfig.elixirls.setup({
+			lspconfig.elixirls.setup({
 				capabilities = capabilities,
 				cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
 				settings = {
@@ -41,15 +29,31 @@ return {
 				},
 			})
 
-			-- Setup for groovy lsp
-			lspConfig.groovyls.setup({
+			lspconfig.pyright.setup({
 				capabilities = capabilities,
 			})
-			lspConfig.pyright.setup({})
+
+			lspconfig.groovyls.setup({
+				capabilities = capabilities,
+			})
 
 			vim.keymap.set("n", "H", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"lua_ls",
+					"elixirls",
+					"pyright",
+					"groovyls",
+				},
+			})
 		end,
 	},
 }
