@@ -81,7 +81,7 @@ return {
 			filesystem = {
 				window = {
 					mappings = {
-						["Z"] = "expand_all_nodes",
+						["<C-x>"] = "expand_all_nodes",
 					},
 				},
 			},
