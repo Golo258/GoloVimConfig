@@ -7,6 +7,7 @@ return {
 					"lua_ls",
 					"elixirls",
 					"pyright",
+					"groovyls",
 				},
 			})
 		end,
@@ -28,6 +29,7 @@ return {
 				},
 			})
 
+			-- Setup for elixir lsp
 			lspConfig.elixirls.setup({
 				capabilities = capabilities,
 				cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
@@ -39,6 +41,10 @@ return {
 				},
 			})
 
+			-- Setup for groovy lsp
+			lspConfig.groovyls.setup({
+				capabilities = capabilities,
+			})
 			lspConfig.pyright.setup({})
 
 			vim.keymap.set("n", "H", vim.lsp.buf.hover, {})

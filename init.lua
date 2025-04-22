@@ -26,3 +26,11 @@ vim.api.nvim_create_autocmd("QuitPre", {
     require("neo-tree.command").execute({ action = "close" })
   end,
 })
+
+
+-- setting for grovvy
+vim.filetype.add({
+  extension = {
+    groovy = "groovy",
+  },
+})

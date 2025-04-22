@@ -69,6 +69,7 @@ return {
 				program = "${file}",
 				console = "integratedTerminal",
 				justMyCode = false,
+				outputCapture = "std",
 				pythonPath = function()
 					return "python"
 				end,
