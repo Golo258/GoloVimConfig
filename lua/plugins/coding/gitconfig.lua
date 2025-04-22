@@ -26,7 +26,13 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "fugitive", "gitcommit", "fugitiveblame" },
 				callback = function()
-					vim.keymap.set("n", "q", "<cmd>q<CR>", { buffer = true, desc = "Close Fugitive View" })
+					vim.keymap.set("n", "q", function()
+						if vim.fn.winnr("$") > 1 then
+							vim.cmd("close")
+						else
+							vim.notify("Nie mozna zamknac: to jedyne okno!", vim.log.levels.INFO)
+						end
+					end, { buffer = true, desc = "Zamknij tylko okno fugitive, nie Neo-tree" })
 				end,
 			})
 		end,
